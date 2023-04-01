@@ -41,6 +41,16 @@
                         <input type="text" name="no_hp" class="formcontrol" id="no_hp"
                             aria-describedby="no_hp">
                     </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="formcontrol" id="email"
+                            aria-describedby="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_lahir">Tanggal_Lahir</label>
+                        <input type="date" name="tanggal_lahir" class="formcontrol" id="tanggal_lahir"
+                            aria-describedby="tanggal_lahir">
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
