@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
             //
-            $table->string('email', 25)->after('no_hp')->nullable();
+            $table->string('email')->after('no_hp')->nullable();
             $table->date('tanggal_lahir')->after('email')->nullable();
 
         });
