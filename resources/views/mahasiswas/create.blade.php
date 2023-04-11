@@ -20,35 +20,43 @@
                 <form method="post" action="{{ route('mahasiswas.store') }}" id="myForm">
                     @csrf
                     <div class="form-group">
-                        <label for="nim">NIM</label>
-                        <input type="text" name="nim" class="formcontrol" id="nim" aria-describedby="nim">
+                        <label for="nim">NIM</label><br>
+                        <input type="text" name="nim" class="form-control" id="nim" aria-describedby="nim">
                     </div>
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="formcontrol" id="nama" aria-describedby="nama">
+                        <label for="nama">Nama</label><br>
+                        <input type="text" name="nama" class="form-control" id="nama" aria-describedby="nama">
                     </div>
                     <div class="form-group">
                         <label for="kelas">Kelas</label>
-                        <input type="text" name="kelas" class="formcontrol" id="kelas" aria-describedby="kelas">
+                        {{-- <input type="text" name="kelas" class="formcontrol" id="kelas" aria-describedby="kelas"> --}}
+                        <select name="kelas" class="form-control">
+                            @foreach ($kelas as $Kelas)
+                                {{-- <script>
+                                    console.log({{$Kelas->nama}});
+                                </script> --}}
+                                <option value={{ $Kelas->id }}>{{ $Kelas->nama_kelas }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="jurusan">Jurusan</label>
-                        <input type="text" name="jurusan" class="formcontrol" id="jurusan"
+                        <label for="jurusan">Jurusan</label><br>
+                        <input type="text" name="jurusan" class="form-control" id="jurusan"
                             aria-describedby="jurusan">
                     </div>
                     <div class="form-group">
-                        <label for="no_hp">No_HP</label>
-                        <input type="text" name="no_hp" class="formcontrol" id="no_hp"
+                        <label for="no_hp">No_HP</label><br>
+                        <input type="text" name="no_hp" class="form-control" id="no_hp"
                             aria-describedby="no_hp">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="formcontrol" id="email"
+                        <label for="email">Email</label><br>
+                        <input type="email" name="email" class="form-control" id="email"
                             aria-describedby="email">
                     </div>
                     <div class="form-group">
-                        <label for="tanggal_lahir">Tanggal_Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="formcontrol" id="tanggal_lahir"
+                        <label for="tanggal_lahir">Tanggal_Lahir</label><br>
+                        <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir"
                             aria-describedby="tanggal_lahir">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

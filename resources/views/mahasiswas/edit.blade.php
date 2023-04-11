@@ -21,7 +21,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="nim">Nim</label>
+                        <label for="nim">NIM</label>
                         <input type="text" name="nim" class="formcontrol" id="nim" value="{{ $Mahasiswa->nim }}"
                             ariadescribedby="nim">
                     </div>
@@ -32,8 +32,19 @@
                     </div>
                     <div class="form-group">
                         <label for="kelas">Kelas</label>
-                        <input type="text" name="kelas" class="formcontrol" id="kelas" value="{{ $Mahasiswa->kelas }}"
-                            ariadescribedby="kelas">
+                        {{-- <input type="text" name="kelas" class="formcontrol" id="kelas" aria-describedby="kelas"> --}}
+                        <select name="kelas" class="form-control">
+                            @foreach ($kelas as $Kelas)
+                                {{-- <script>
+                                    console.log({{$Kelas->nama}});
+                                </script> --}}
+                                @if ($Mahasiswa->kelas_id == $Kelas->id)
+                                    <option value={{ $Kelas->id }} selected>{{ $Kelas->nama_kelas }}</option>
+                                @else
+                                    <option value={{ $Kelas->id }}>{{ $Kelas->nama_kelas }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="jurusan">Jurusan</label>
