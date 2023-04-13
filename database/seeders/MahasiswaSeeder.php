@@ -37,7 +37,7 @@ class MahasiswaSeeder extends Seeder
                 'tanggal_lahir'=>'2003-11-11'
             ],
             [
-                'nim'=>'2141720002',
+                'nim'=>'2141720003',
                 'nama'=>'Edi Filayas',
                 'kelas'=>'TI - 2J',
                 'jurusan'=>'Teknologi Informasi',

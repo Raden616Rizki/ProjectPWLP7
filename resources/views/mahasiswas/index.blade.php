@@ -42,12 +42,14 @@
         <td>{{ $Mahasiswa->email }}</td>
         <td>{{ $Mahasiswa->tanggal_lahir }}</td>
         <td>
-            <form action="{{ route('mahasiswas.destroy',$Mahasiswa->nim) }}" method="POST">
+            <form action="{{ route('mahasiswas.destroy',$Mahasiswa->nim) }}" method="POST" class="d-flex mb-auto" >
                 <a class="btn btn-info" href="{{ route('mahasiswas.show',$Mahasiswa->nim) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('mahasiswas.edit',$Mahasiswa->nim) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
+
+                <a class="btn btn-warning" href="/mahasiswas/nilai/{{ $Mahasiswa->nim }}">Nilai</a>
             </form>
         </td>
     </tr>
