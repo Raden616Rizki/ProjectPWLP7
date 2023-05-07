@@ -37,7 +37,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
-        $image_name = 'unknown_file';
+        $image_name = 'unknown';
 
         if ($request->file('image')) {
             $image_name = $request->file('image')->store('images', 'public');
@@ -72,9 +72,12 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
         //
+        $article = Article::find($id);
+
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
@@ -84,9 +87,28 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
         //
+        $article = Article::find($id);
+
+        $article->title = $request->title;
+        $article->content = $request->content;
+        // $image_name = $article->featured_image;
+
+        if ($article->featured_image && file_exists(storage_path('app/public/'.$article->featured_image))) {
+            \Storage::delete('public/'.$article->featured_image);
+        }
+
+        $image_name = $request->file('image')->store('images', 'public');
+        $article->featured_image = $image_name;
+
+        $article->save();
+
+        $message = 'Artikel berhasil diupdate!';
+        echo "<script>alert('".$message."');</script>";
+
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
