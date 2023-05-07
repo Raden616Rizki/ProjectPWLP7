@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
-use App\Models\MataKuliah;
-use App\Models\MahasiswaMataKuliah;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -54,16 +53,23 @@ class MahasiswaController extends Controller
         $request->validate([
             'nim' => 'required',
             'nama' => 'required',
+            'foto' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
             'no_hp' => 'required',
             'email' => 'required',
             'tanggal_lahir' => 'required'
         ]);
+
+        if ($request->file('foto')) {
+            $filename = $request->file('foto')->store('foto', 'public');
+        }
+
         //fungsi eloquent untuk menambah data
         $mahasiswa = new Mahasiswa;
         $mahasiswa->nim = $request->get('nim');
         $mahasiswa->nama = $request->get('nama');
+        $mahasiswa->foto = $filename;
         $mahasiswa->jurusan = $request->get('jurusan');
         $mahasiswa->no_hp = $request->get('no_hp');
         $mahasiswa->email = $request->get('email');
@@ -124,6 +130,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'nim' => 'required',
             'nama' => 'required',
+            'foto' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
             'no_hp' => 'required',
@@ -138,6 +145,13 @@ class MahasiswaController extends Controller
         $mahasiswa->no_hp = $request->get('no_hp');
         $mahasiswa->email = $request->get('email');
         $mahasiswa->tanggal_lahir = $request->get('tanggal_lahir');
+
+        if ($mahasiswa->foto && file_exists(storage_path('app/public/'.$mahasiswa->foto))) {
+            \Storage::delete('public/'.$mahasiswa->foto);
+        }
+
+        $filename = $request->file('foto')->store('foto', 'public');
+        $mahasiswa->foto = $filename;
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas');
@@ -171,6 +185,14 @@ class MahasiswaController extends Controller
         $Mahasiswa = Mahasiswa::find($nim);
 
         return view('mahasiswas.nilai', compact('Mahasiswa'));
+    }
+
+    public function cetak_pdf($nim) {
+        $Mahasiswa = Mahasiswa::find($nim);
+
+        $pdf = PDF::loadview('mahasiswas.cetak_pdf', ['Mahasiswa' => $Mahasiswa]);
+
+        return $pdf->stream();
     }
 
     // public function search(Request $request)

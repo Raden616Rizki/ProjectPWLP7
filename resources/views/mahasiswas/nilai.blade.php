@@ -32,6 +32,7 @@
                 </table>
             </div>
             <a class="btn btn-success mt-3" href="{{ route('mahasiswas.index') }}">Kembali</a>
+            <a class="btn btn-danger mt-3" target="_blank" href="/mahasiswas/cetak-pdf/{{ $Mahasiswa->nim }}">Cetak PDF</a>
         </div>
     </div>
 </div>
